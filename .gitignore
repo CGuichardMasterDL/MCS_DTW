@@ -1,6 +1,9 @@
 __pycache__/
 build/
 dist/
-pycast.egg-info/
+mcs_dtw.egg-info/
+out/
 venv/
+.install
+.install-venv
 *.pyc

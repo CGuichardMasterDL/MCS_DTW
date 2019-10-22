@@ -20,6 +20,8 @@ setup(
     url='https://github.com/CGuichardMasterDL/MCS_DTW',
     license=license,
     packages=find_packages(exclude=('tests', 'docs')),
+    keywords="audio reconnaissance dtw python3",
+    install_requires=[],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
