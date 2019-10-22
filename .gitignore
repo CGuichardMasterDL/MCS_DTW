@@ -1,0 +1,6 @@
+__pycache__/
+build/
+dist/
+pycast.egg-info/
+venv/
+*.pyc

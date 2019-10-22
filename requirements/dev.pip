@@ -1,0 +1,4 @@
+# Dependencies needed for development
+setuptools
+wheel
+nose
