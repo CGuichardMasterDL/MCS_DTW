@@ -1,14 +1,19 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+    Setup.py du projet MCS_DTW.
+    Ne pas modifier.
+"""
 
 from setuptools import setup, find_packages
 
 import mcs_dtw
 
 with open('README.md', 'r') as f:
-    readme = f.read()
+    README = f.read()
 
 with open('LICENSE', 'r') as f:
-    license = f.read()
+    LICENSE = f.read()
 
 setup(
     name='mcs_dtw',
@@ -16,9 +21,9 @@ setup(
     author=mcs_dtw.__author__,
     author_email=mcs_dtw.__email__,
     description=mcs_dtw.__description__,
-    long_description=readme,
+    long_description=README,
     url='https://github.com/CGuichardMasterDL/MCS_DTW',
-    license=license,
+    license=LICENSE,
     packages=find_packages(exclude=('tests', 'docs')),
     keywords="audio reconnaissance dtw python3",
     install_requires=[],
@@ -27,7 +32,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    entry_points = {
+    entry_points={
         'console_scripts' : [
             'mcs_dtw = mcs_dtw:cmd_mcsdtw',
         ]
