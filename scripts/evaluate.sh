@@ -11,7 +11,7 @@ fi
 mkdir -p out
 mkdir -p out/pylint
 
-printf "#======   EVALUATION    =====#\n\n"
+printf "\033[0;36m#======   EVALUATION    =====#\033[0m\n\n"
 test=$(dpkg-query -W -f='${Status}\n' "pylint3" 2>/dev/null | grep -c "install ok installed")
 if [ "$test" -eq 1 ]; then
   for rep in "tests" "mcs_dtw"; do
@@ -23,8 +23,8 @@ if [ "$test" -eq 1 ]; then
     printf "$rep/ :\n  $eval\n"
   done
   printf "\n-> Evaluation finie (résultats dans : 'out/pylint/')\n"
-  printf "\n#======      DONE       =====#\n"
+  printf "\n\033[0;32m#======      DONE       =====#\033[0m\n"
 else
-  printf "Erreur: Veuillez installer les paquets nécessaires (voir le README.md).\n"
-  printf "\n#======     FAILED      =====#\n"
+  printf "\033[0;31mErreur\033[0m: Veuillez installer les paquets nécessaires (voir le README.md).\n"
+  printf "\n\033[0;31m#======     FAILED      =====#\033[0m\n"
 fi

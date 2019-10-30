@@ -1,6 +1,6 @@
 #!/bin/bash
 
-printf "#======   UNINSTALL   =====#\n\n"
+printf "\033[0;36m#======   UNINSTALL   =====#\033[0m\n\n"
 if [ -f ".install" ] || [ -f ".install-venv" ]; then
   if [ -f ".install" ]
   then
@@ -18,4 +18,4 @@ if [ -f ".install" ] || [ -f ".install-venv" ]; then
 else
   echo "Aucune installation trouvé."
 fi
-printf "\n#======     DONE      =====#\n"
+printf "\n\033[0;32m#======     DONE      =====#\033[0m\n"
