@@ -17,11 +17,15 @@ setup(
     author_email=mcs_dtw.__email__,
     description=mcs_dtw.__description__,
     long_description=readme,
+    include_package_data=True,
     url='https://github.com/CGuichardMasterDL/MCS_DTW',
     license=license,
     packages=find_packages(exclude=('tests', 'docs')),
     keywords="audio reconnaissance dtw python3",
-    install_requires=[],
+    install_requires=[
+        'numpy',
+        'librosa'
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
@@ -29,7 +33,8 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'mcs_dtw = mcs_dtw:cmd_mcsdtw'
+            'mcs_dtw = mcs_dtw:cmd_mcsdtw',
+            'main = mcs_dtw.__main__:main'
         ]
     }
 )
