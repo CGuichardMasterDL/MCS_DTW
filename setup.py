@@ -27,9 +27,9 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    entry_points = {
-        'console_scripts' : [
-            'mcs_dtw = mcs_dtw:cmd_mcsdtw',
+    entry_points={
+        'console_scripts': [
+            'mcs_dtw = mcs_dtw:cmd_mcsdtw'
         ]
     }
 )

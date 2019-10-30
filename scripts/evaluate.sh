@@ -25,6 +25,6 @@ if [ "$test" -eq 1 ]; then
   printf "\n-> Evaluation finie (résultats dans : 'out/pylint/')\n"
   printf "\n\033[0;32m#======      DONE       =====#\033[0m\n"
 else
-  printf "\033[0;31mErreur\033[0m: Veuillez installer les paquets nécessaires (voir le README.md).\n"
+  printf "\033[1;31mErreur\033[0m: Veuillez installer les paquets nécessaires (voir le README.md).\n"
   printf "\n\033[0;31m#======     FAILED      =====#\033[0m\n"
 fi
