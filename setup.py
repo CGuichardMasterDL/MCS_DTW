@@ -1,14 +1,15 @@
-# -*- coding: utf-8 -*-
-
+"""
+    Application setup
+"""
 from setuptools import setup, find_packages
 
 import mcs_dtw
 
 with open('README.md', 'r') as f:
-    readme = f.read()
+    README = f.read()
 
 with open('LICENSE', 'r') as f:
-    license = f.read()
+    LICENSE = f.read()
 
 setup(
     name='mcs_dtw',
@@ -16,10 +17,10 @@ setup(
     author=mcs_dtw.__author__,
     author_email=mcs_dtw.__email__,
     description=mcs_dtw.__description__,
-    long_description=readme,
+    long_description=README,
     include_package_data=True,
     url='https://github.com/CGuichardMasterDL/MCS_DTW',
-    license=license,
+    license=LICENSE,
     packages=find_packages(exclude=('tests', 'docs')),
     keywords="audio reconnaissance dtw python3",
     install_requires=[

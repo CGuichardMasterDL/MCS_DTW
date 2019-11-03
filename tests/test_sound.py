@@ -1,16 +1,10 @@
-# -*- coding: utf-8 -*-
 """
     Test de la classe Sound
 """
 
-#========== IMPORT ==========#
-
 import unittest
-from .context import mcs_dtw
 from mcs_dtw import ROOT_PATH
 from mcs_dtw.sound import Sound
-
-#=========  TESTS   =========#
 
 
 class TestSound(unittest.TestCase):
@@ -25,48 +19,46 @@ class TestSound(unittest.TestCase):
     def tearDown(self):
         del self.sound
 
-    def test_getLocuteur(self):
+    def test_get_locuteur(self):
         """
             Vérifier si le son créé a bien le bon locuteur
         """
-        self.assertEqual(self.sound.getLocuteur(), "M02")
+        self.assertEqual(self.sound.get_locuteur(), "M02")
 
-    def test_getPath(self):
+    def test_get_path(self):
         """
             Vérifier si le son créé a bien le bon path
         """
-        self.assertEqual(self.sound.getPath(), self.sound_path)
+        self.assertEqual(self.sound.get_path(), self.sound_path)
 
-    def test_getGenre(self):
+    def test_get_genre(self):
         """
             Vérifier si le son créé a bien le bon genre (M ou F)
         """
-        self.assertEqual(self.sound.getGenre(), 'M')
+        self.assertEqual(self.sound.get_genre(), 'M')
 
-    def test_getOrdre(self):
+    def test_get_ordre(self):
         """
             Vérifier si le son créé a bien le bon ordre
         """
-        self.assertEqual(self.sound.getOrdre(), "avance")
+        self.assertEqual(self.sound.get_ordre(), "avance")
 
-    def test_isBruite(self):
+    def test_is_bruite(self):
         """
             Vérifier si le son créé est bruité ou non
         """
-        self.assertEqual(self.sound.isBruite(), True)
+        self.assertEqual(self.sound.is_bruite(), True)
 
-    def test_getMfcc(self):
+    def test_get_mfcc(self):
         """
             Vérifier si la matrice mfcc est bien construite
             Notamment si elle bien composée de n vecteurs de longueur 12 (pas l'inverse)
         """
-        mfcc = self.sound.getMfcc()
+        mfcc = self.sound.get_mfcc()
         self.assertEqual(len(mfcc[0]), 12)
         self.assertEqual(mfcc.shape, (16, 12))
         self.assertAlmostEqual(mfcc[0][0], -228.14565, places=5)
 
-
-#=========   EXEC   =========#
 
 if __name__ == '__main__':
     unittest.main()
