@@ -1,0 +1,6 @@
+# TODO LIST
+
+[x] (A) Fonction de distance entre deux sons +MCS_DTW @dtw
+[x] (B) Fouille de dossiers (pour l'étape suivante) +MCS_DTW @scandir
+[x] (C) Génération d'un jeu d'apprentissage +MCS_DTW @learningset
+[x] (D) Résolution du type d'un fichier audio (savoir quel est l'ordre) via le jeu d'apprentissage +MCS_DTW @learning

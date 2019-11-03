@@ -1,6 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
-    Application setup
+    Setup.py du projet MCS_DTW.
+    Ne pas modifier.
 """
+
 from setuptools import setup, find_packages
 
 import mcs_dtw
