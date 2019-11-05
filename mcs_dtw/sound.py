@@ -2,6 +2,7 @@
     Objet son -> contient la matrice mfcc d'un fichier audio.
     + des informations sur le fichier (locuteur etc) utiles pour l'étude
 """
+import pickle
 import numpy
 import librosa
 
@@ -57,6 +58,12 @@ class Sound:
             Retourne la matrice mfcc associée au son
         """
         return self.__mfcc
+
+    def serialize(self):
+        """
+            Retourne une chaîne de caractères représentant l'objet
+        """
+        return pickle.dumps(self)
 
 
 def build_mfcc(filepath):
