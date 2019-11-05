@@ -1,7 +1,6 @@
 # TODO LIST
 
 [x] (A) Algorithme DTW (avec génération du chemin) +MCS_DTW @dtw
-[x] (B) ACP (Passer de la mfcc à des vecteurs (3,1)) +MCS_DTW @acp
 [x] (C) Génération d'un jeu d'apprentissage +MCS_DTW @learningset
 [x] (D) Résolution du type d'un fichier audio (savoir quel est l'ordre) via le jeu d'apprentissage +MCS_DTW @learning
 [x] (E) Algorithme kppv +MCS_DTW @kppv
