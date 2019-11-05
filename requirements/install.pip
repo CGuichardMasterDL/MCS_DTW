@@ -1,1 +1,3 @@
 # Dependencies needed for the project to work
+numpy
+librosa

@@ -24,8 +24,8 @@ def main():
     mcs_dtw.cmd_mcsdtw()
     sound = Sound(mcs_dtw.ROOT_PATH +
                   "/corpus/dronevolant_bruite/M02_avance.wav")
-    print(sound.getMfcc()[0][0])
-    print(sound.getMfcc().shape)
+    print(sound.get_mfcc()[0][0])
+    print(sound.get_mfcc().shape)
     # print(len(getAllFiles()))
 
 
