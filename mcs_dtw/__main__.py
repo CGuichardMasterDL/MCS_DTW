@@ -25,6 +25,9 @@ def main():
                   "/corpus/dronevolant_bruite/M02_avance.wav")
     print(sound.get_mfcc()[0][0])
     print(sound.get_mfcc().shape)
+    print(sound.get_composantes_principales())
+    print(sound.get_composantes_principales().shape)
+    print(sound.serialize())
     # print(len(getAllFiles()))
 
 

@@ -5,6 +5,7 @@
 import pickle
 import numpy
 import librosa
+from sklearn.decomposition import PCA
 
 
 class Sound:
@@ -22,6 +23,8 @@ class Sound:
         self.__ordre = path.split('/')[-1].split('_')[1].split('.')[0]
         self.__bruite = path.split('/')[-2] == 'dronevolant_bruite'
         self.__mfcc = build_mfcc(path)
+        self.__composantes_principales = PCA(
+            n_components=3).fit(self.__mfcc).singular_values_
 
     def get_path(self):
         """
@@ -59,9 +62,15 @@ class Sound:
         """
         return self.__mfcc
 
+    def get_composantes_principales(self):
+        """
+            Retourne les composantes principles d'un son (veteur (3,1))
+        """
+        return self.__composantes_principales
+
     def serialize(self):
         """
-            Retourne une chaîne de caractères représentant l'objet
+            Serilisation (retourne un bytes)
         """
         return pickle.dumps(self)
 
