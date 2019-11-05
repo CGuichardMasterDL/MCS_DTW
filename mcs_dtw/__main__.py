@@ -21,7 +21,6 @@ def main():
     """
         Pas vraiment du but particulier pour le moment
     """
-    mcs_dtw.cmd_mcsdtw()
     sound = Sound(mcs_dtw.ROOT_PATH +
                   "/corpus/dronevolant_bruite/M02_avance.wav")
     print(sound.get_mfcc()[0][0])
