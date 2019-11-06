@@ -91,7 +91,7 @@ Si vous n'avez aucune erreur, vous pouvez continuer votre développement. Sinon 
 ### Gestion du Git
 
 Concernant la gestion du Git, nous allons faire un développement par branch.
-Chaque branch sera nommée selon un certain format : "**<:nom>/<:fonctionnalité-à-implémenter>**". On pourrait avoir par exemple une branch _guichard/fouillededossier_, pour l'implémentation de fonctions permettant de récupérer l'ensemble des fichiers et dossiers contenus dans un répertoire.
+Chaque branch sera nommée selon un certain format : "**<:nom>-<:fonctionnalité-à-implémenter>**". On pourrait avoir par exemple une branch _guichard-fouillededossier_, pour l'implémentation de fonctions permettant de récupérer l'ensemble des fichiers et dossiers contenus dans un répertoire.
 
 Faites vos commits intelligemment, nommez vos commits avec des messages compréhensibles pour que les autres collaborateurs puissent savoir ce qu'apporte le commit au projet. Surtout ne commitez jamais du code non testé !
 
