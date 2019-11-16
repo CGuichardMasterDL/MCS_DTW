@@ -6,10 +6,12 @@
 #========== IMPORT ==========#
 
 import unittest
-from .context import mcs_dtw
+
+from mcs_dtw import is_imported
 
 
 #=========  TESTS   =========#
+
 
 class TestBasic(unittest.TestCase):
     """
@@ -24,12 +26,13 @@ class TestBasic(unittest.TestCase):
         vrai = True
         self.assertTrue(vrai)
 
+
     def test_basic_import(self):
         """
             Test utilisé pour regardet si mcs_dtw est
             importé correctement
         """
-        self.assertTrue(mcs_dtw.is_imported())
+        self.assertTrue(is_imported())
 
 
 #=========   EXEC   =========#

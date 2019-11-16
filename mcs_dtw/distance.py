@@ -1,7 +1,13 @@
+# -*- coding: utf-8 -*-
 """
     Fonctions de distance utilisées dans le TP
 """
+
+#========== IMPORT ==========#
+
 import numpy
+
+#======== FUNCTIONS =========#
 
 
 def euclidienne(num_a, num_b):

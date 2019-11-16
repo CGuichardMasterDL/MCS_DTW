@@ -1,13 +1,14 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
     MCS_DTW est un module de reconnaissance vocal utilisé pour reconnaitre
     des ordres pour un petit robot.
 """
 
+#========== IMPORT ==========#
+
 import os
 
-from .yamlmanager import write_yaml, load_yaml
+#======== VARIABLES =========#
 
 __author__ = "Clément GUICHARD, Dorian AZEMA, Kévin DELCOURT"
 __version__ = "0.1.0"
@@ -17,7 +18,10 @@ __email__ = "clement.guichard@master-developpement-logiciel.fr"
 
 name = "mcs_dtw"  # pylint: disable=invalid-name
 
-ROOT_PATH = os.path.dirname(__file__)
+SRC_PATH = os.path.dirname(__file__)
+
+#======== FUNCTIONS =========#
+
 
 def is_imported():
     """

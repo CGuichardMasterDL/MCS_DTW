@@ -29,7 +29,8 @@ setup(
     keywords="audio reconnaissance dtw python3",
     install_requires=[
         'numpy',
-        'librosa'
+        'librosa',
+        'pyyaml'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -39,7 +40,6 @@ setup(
     entry_points={
         'console_scripts': [
             'mcs_dtw = mcs_dtw:cmd_mcsdtw',
-            'main = mcs_dtw.__main__:main'
         ]
     }
 )
