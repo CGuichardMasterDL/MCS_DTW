@@ -11,6 +11,13 @@ import sys
 import os
 
 # Correction du chemin pour l'import qui suit
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+ROOT_PATH =  os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/"
+sys.path.insert(0, ROOT_PATH)
 
 import mcs_dtw
+
+#==========  DEFS  ==========#
+
+
+def path(filepath):
+    return ROOT_PATH+filepath
