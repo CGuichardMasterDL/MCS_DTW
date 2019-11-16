@@ -11,6 +11,9 @@ printf "\033[0;36m#======      TEST      =====#\033[0m\n\n"
 test1=$(python3 --help 2>/dev/null | grep -c "usage:")
 test2=$(python3 -mnose --help 2> /dev/null)
 if [ "$test1" -eq 1 ] && [ -n "$test2" ]; then
+  mkdir -p out
+  mkdir -p out/tests
+  rm -rf out/tests/*
   python3 -m nose tests
   rm -f tests/*.pyc
   printf "\n\033[0;32m#======      DONE      =====#\033[0m\n"
