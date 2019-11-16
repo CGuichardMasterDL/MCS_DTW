@@ -3,7 +3,12 @@
     Ce module sert à écrire des fichiers yaml, ainsi que les charger.
 """
 
+#========== IMPORT ==========#
+
 import yaml
+
+#======== FUNCTIONS =========#
+
 
 def write_yaml(filepath, data):
     """
@@ -18,4 +23,4 @@ def load_yaml(filepath):
         Charge un fichier yaml dans python.
     """
     with open(filepath, 'r') as stream:
-        return yaml.safe_load(stream)
+        return yaml.load(stream, Loader=yaml.Loader)
