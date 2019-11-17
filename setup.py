@@ -30,7 +30,8 @@ setup(
     install_requires=[
         'numpy',
         'librosa',
-        'pyyaml'
+        'pyyaml',
+        'matplotlib'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
