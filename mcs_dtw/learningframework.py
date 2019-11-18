@@ -5,20 +5,10 @@
 """
 
 import random
-from sklearn.metrics import confusion_matrix
-import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.utils.multiclass import unique_labels
 from dtw import find_dtw_match
-from kppv import find_kppv_match, pretraitement_acp
+from kppv import find_kppv_match, pretraitement_acp, find_dual_kppv_match, pretraitement_acp_dual
 from result import Result
-
-
-def algorithme_test(sound, base):
-    """
-        Disparaîtra en faveur de la dtw / kppv
-    """
-    return base[random.randint(0, len(base)-1)]
 
 
 class LearningFramework:
@@ -27,8 +17,9 @@ class LearningFramework:
     """
 
     ALGORITHMES = {
-        "Programmation dynamique": (find_dtw_match, lambda x: None),
-        "K plus proches voisins": (find_kppv_match, pretraitement_acp)
+        # "Programmation dynamique": (find_dtw_match, lambda x: None),
+        "K plus proches voisins": (find_kppv_match, pretraitement_acp),
+        "K plus proches voisins dual": (find_dual_kppv_match, pretraitement_acp_dual)
     }
 
     def __init__(self, base_apprentissage):
@@ -38,13 +29,13 @@ class LearningFramework:
         """
         self.base_apprentissage = base_apprentissage
 
-    def analyse(self, base_test, algorithme, pretraitement):
+    def analyse(self, base_test, algorithme, pretraitement, verbose=False):
         """
             Compare chaque fichier de la base de test avec la base d'apprentissage selon
             l'algorithme de la forme:
             algorithme(objetSound,baseApprentissage): ordreReconnu
         """
-        result = Result()
+        result = Result(verbose=verbose)
         params = pretraitement(self.base_apprentissage)
         for unknown_sound in base_test:
             predicted_sound = algorithme(
@@ -62,12 +53,12 @@ class LearningFramework:
         for key, alg in self.ALGORITHMES.items():
             plot_id += 1
 
-            result = self.analyse(base_test, alg[0], alg[1])
+            result = self.analyse(base_test, alg[0], alg[1], verbose=verbose)
 
             if printed:
                 print("\033[1;32m\n#=========================================#\n" +
                       key+"\n#=========================================#\n\033[0;")
-                result.print(verbose=verbose)
+                result.print()
             if windowed:
                 ax = plt.subplot(1, len(self.ALGORITHMES), plot_id)
                 result.affichage(key, plt, ax)

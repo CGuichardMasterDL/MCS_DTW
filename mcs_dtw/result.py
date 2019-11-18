@@ -14,7 +14,7 @@ class Result(object):
         base de test et base d'apprentissage
     """
 
-    def __init__(self):
+    def __init__(self, verbose=True):
         """
             Constructor
         """
@@ -22,6 +22,7 @@ class Result(object):
         self.sons_predis = []
         self.ordres_donnes = []
         self.ordres_predis = []
+        self.verbose = verbose
 
     def append_sounds(self, son_donne, son_predis):
         """
@@ -31,6 +32,8 @@ class Result(object):
         self.sons_predis.append(son_predis)
         self.ordres_donnes.append(son_donne.get_ordre())
         self.ordres_predis.append(son_predis.get_ordre())
+        if self.verbose:
+            self.print_line(son_donne, son_predis)
 
     def get_confusion_matrix(self):
         """
@@ -71,31 +74,30 @@ class Result(object):
             + "Taux de reconnaissance sur l'ordre et le locuteur : %.2f%% (%d erreurs)\n" % (
                 (stats[1]*100), stats[3])
 
-    def print(self, verbose=True):
+    def print_line(self, son_donne, son_predis):
+        """
+            Affichage d'une comparaison
+        """
+        if son_donne.get_ordre() == son_predis.get_ordre():
+            print("\033[0;33m", end='')
+            if son_donne.get_locuteur() == son_predis.get_locuteur():
+                print("\033[0;32m", end='')
+        else:
+            print("\033[0;31m", end='')
+        print("{0} : {1}     \t a été reconnu comme étant\t {2} : {3}\033[0m".format(
+            son_donne.get_locuteur(),
+            son_donne.get_ordre(),
+            son_predis.get_locuteur(),
+            son_predis.get_ordre()))
+
+    def print(self):
         """
             Afficher les résultats dans le terminal
         """
 
         print(
             "\n\033[1;35m#======       RÉSULTATS        =====#\033[0m\n\033[0;36m")
-
-        print(self.get_formatted_stats())
-
-        print("\033[0m", end='')
-        if verbose:
-            print("\n\033[1;35m#======        DÉTAILS         =====#\033[0m\n")
-            for i in range(len(self.sons_donnes)):
-                if self.ordres_donnes[i] == self.ordres_predis[i]:
-                    print("\033[0;33m", end='')
-                    if self.sons_donnes[i].get_locuteur() == self.sons_predis[i].get_locuteur():
-                        print("\033[0;32m", end='')
-                else:
-                    print("\033[0;31m", end='')
-                print("{0} : {1}     \t a été reconnu comme étant\t {2} : {3}\033[0m".format(
-                    self.sons_donnes[i].get_locuteur(),
-                    self.sons_donnes[i].get_ordre(),
-                    self.sons_predis[i].get_locuteur(),
-                    self.sons_predis[i].get_ordre()))
+        print(self.get_formatted_stats(), end='\n\033[0m')
 
     def affichage(self, title, plt, ax):
         """

@@ -20,14 +20,14 @@ class Sound:
 
     def __init__(self, path=None, values=None):
         """
-            Nouveau fichier son. path se termine en /bruite_ou_non/locuteur_ordre.wav
+            Nouveau fichier son. path se termine en /effet/locuteur_ordre.wav
         """
         if path is not None:
             self._path = path
             self._locuteur = path.split('/')[-1][:3]
             self._genre = self._locuteur[0]
             self._ordre = path.split('/')[-1].split('_')[1].split('.')[0]
-            self._bruite = path.split('/')[-2] == 'dronevolant_bruite'
+            self._effet = path.split('/')[-2]
             self._mfcc = _build_mfcc(path)
             self._composantes_principales = None
         elif values is not None:
@@ -40,7 +40,7 @@ class Sound:
                 self.get_locuteur() == other.get_locuteur() and \
                 self.get_genre() == other.get_genre() and \
                 self.get_ordre() == other.get_ordre() and \
-                self.is_bruite() == other.is_bruite() and \
+                self.get_effet() == other.get_effet() and \
                 (self.get_mfcc() == other.get_mfcc()).all()
         return False
 
@@ -71,11 +71,11 @@ class Sound:
         """
         return self._ordre
 
-    def is_bruite(self):
+    def get_effet(self):
         """
-            True si le fichier est bruité
+            Renvoie l'effet du fichier audio
         """
-        return self._bruite
+        return self._effet
 
     def get_mfcc(self):
         """

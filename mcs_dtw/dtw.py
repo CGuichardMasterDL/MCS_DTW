@@ -4,6 +4,7 @@
 import math
 import numpy as np
 from mcs_dtw.distance import entre_fenetres_audio
+import matplotlib.pyplot as plt
 
 
 def get_distance(matrix):
@@ -46,6 +47,21 @@ def dtw(sequence_i, sequence_j, distance=entre_fenetres_audio, w_0=1, w_1=1, w_2
     return (g, get_distance(g))
 
 
+def find_dtw_match(unknown_sound, base, params=None):
+    """
+        Trouve le son le plus proche de unknown_sound dans le tableau de sons passé en paramètre
+    """
+    match = ""
+    distance_min = math.inf
+    for sound in base:
+        distance = dtw(unknown_sound.get_mfcc(),
+                       sound.get_mfcc(), d_max_diagonale=6)[1]
+        if distance < distance_min:
+            match = sound
+            distance_min = distance
+    return match
+
+
 def find_d_max_diagonale(sequence_i, sequence_j, d=entre_fenetres_audio, w_0=1, w_1=1, w_2=1):
     """
         Trouver à partir de quelle distance de la diagonale
@@ -62,16 +78,38 @@ def find_d_max_diagonale(sequence_i, sequence_j, d=entre_fenetres_audio, w_0=1, 
     return valeur_distance+1
 
 
-def find_dtw_match(unknown_sound, base, params=None):
+def etude_d_max_diagonale(sounds):
     """
-        Trouve le son le plus proche de unknown_sound dans le tableau de sons passé en paramètre
+        Appliquer find_d_max_diagonale pour chaque couple de valeurs de la base en paramètre
+        le représenter dans matplotlib
     """
-    match = ""
-    distance_min = math.inf
-    for sound in base:
-        distance = dtw(unknown_sound.get_mfcc(),
-                       sound.get_mfcc(), d_max_diagonale=6)[1]
-        if distance < distance_min:
-            match = sound
-            distance_min = distance
-    return match
+    x_ticks = []
+    matrix = []
+    for x_sound in sounds:
+        x_ticks.append(x_sound.get_locuteur()+" : "+x_sound.get_ordre())
+        matrix_line = []
+        for y_sound in sounds:
+            matrix_line.append(find_d_max_diagonale(
+                x_sound.get_mfcc(), y_sound.get_mfcc()))
+        matrix.append(matrix_line)
+    matrix = np.asarray(np.asarray(matrix))
+
+    fig, ax = plt.subplots()
+
+    im = ax.imshow(matrix, interpolation='nearest', cmap=plt.cm.Reds)
+    ax.figure.colorbar(im, ax=ax)
+
+    ax.set(xticks=np.arange(matrix.shape[1]),
+           yticks=np.arange(matrix.shape[0]))
+
+    ax.set_yticklabels(x_ticks, fontsize=7)
+    ax.set_xticklabels(x_ticks, fontsize=7)
+    ax.set_title("Distance maximale de la diagonale")
+    plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
+             rotation_mode="anchor")
+    for i in range(matrix.shape[0]):
+        for j in range(matrix.shape[1]):
+            ax.text(j, i, format(matrix[i, j], 'd'),
+                    ha="center", va="center")
+
+    plt.show()
