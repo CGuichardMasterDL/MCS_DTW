@@ -10,9 +10,12 @@ import mcs_dtw
 import numpy as np
 import matplotlib.pyplot as plt
 from mcs_dtw.sound import Sound
-from mcs_dtw.analyser import AnalyserFramework, algorithme_test
+from mcs_dtw.learningframework import LearningFramework, algorithme_test
 from scipy.io import wavfile
 from mpl_toolkits import mplot3d
+from mcs_dtw.dtw import dtw, find_d_max_diagonale, find_dtw_match
+from mcs_dtw.learningset import LearningSet
+from mcs_dtw.kppv import pretraitement_acp
 
 #======== FUNCTIONS =========#
 
@@ -29,6 +32,9 @@ def get_all_files():
 
 
 def visualize3d(sounds):
+    """
+        Test d'affichage 3d de points 
+    """
     fig = plt.figure()
     ax = plt.axes(projection='3d')
 
@@ -45,34 +51,19 @@ def main():
     """
         Pas vraiment du but particulier pour le moment
     """
-    # sound = Sound(mcs_dtw.ROOT_PATH +"/corpus/dronevolant_bruite/M02_avance.wav")
-    # print(vars(sound))
-    # fech, audio = wavfile.read(mcs_dtw.ROOT_PATH +
-    #                           "/corpus/dronevolant_bruite/M02_avance.wav")
-    # plt.figure()
+    sound_base = LearningSet(folder=mcs_dtw.SRC_PATH +
+                             "/corpus/dronevolant_nonbruite")
+    base_apprentissage = [
+        sound for sound in sound_base.values() if sound.get_locuteur() == 'M01']
 
-    # plt.plot(np.arange(audio)/fech, audio)
-    # plt.xlabel('temps (s)')
-    # plt.ylabel('Amplitude')
-    # plt.title('Signal audio')
-    # plt.grid(True)
-    # plt.show()
-    # print(sound.get_composantes_principales())
-    # print(sound.serialize())
-    # print(len(getAllFiles()))
-    #files = get_all_files()
-    # base_apprentissage = [sound for sound in files
-    #                      if sound.get_locuteur() == 'M01' and not sound.is_bruite()]
-    # base_test = [sound for sound in files
-    #             if sound.get_locuteur() == 'M01' and not sound.is_bruite()]
-    # analyser = AnalyserFramework(base_apprentissage, base_test)
-    # print(analyser.analyse(algorithme_test))
-    # analyser.show_confuxion_matrix()
-    # visualize3d(files)
-    print('you')
+    base_test = [sound for sound in sound_base.values()
+                 if sound.get_locuteur() == 'M02']
+
+    framework = LearningFramework(base_apprentissage)
+    framework.analyse_all_algorithms(base_test, printed=True, verbose=True)
+    #print(find_d_max_diagonale(base_apprentissage[0].get_mfcc(), base_test[12].get_mfcc()))
 
 
 #=========   EXEC   =========#
-
 if __name__ == "__main__":
     main()

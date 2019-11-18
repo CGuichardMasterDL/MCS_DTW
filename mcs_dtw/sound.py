@@ -10,8 +10,6 @@ import pickle
 import numpy
 import librosa
 
-from sklearn.decomposition import PCA
-
 #========== CLASSE ==========#
 
 
@@ -31,12 +29,10 @@ class Sound:
             self._ordre = path.split('/')[-1].split('_')[1].split('.')[0]
             self._bruite = path.split('/')[-2] == 'dronevolant_bruite'
             self._mfcc = _build_mfcc(path)
-            self._composantes_principales = PCA(
-                n_components=3).fit(self._mfcc).singular_values_
+            self._composantes_principales = None
         elif values is not None:
             for value in values.keys():
                 setattr(self, '_'+value, values[value])
-
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
@@ -48,10 +44,8 @@ class Sound:
                 (self.get_mfcc() == other.get_mfcc()).all()
         return False
 
-
     def __hash__(self):
         return hash(self.get_mfcc().tostring())
-
 
     def get_path(self):
         """
@@ -59,13 +53,11 @@ class Sound:
         """
         return self._path
 
-
     def get_locuteur(self):
         """
             Retourne le locuteur du son (ex M01,F02 etc)
         """
         return self._locuteur
-
 
     def get_genre(self):
         """
@@ -73,13 +65,11 @@ class Sound:
         """
         return self._genre
 
-
     def get_ordre(self):
         """
             Retourne l'ordre dicté dans le fichier (ex avance...)
         """
         return self._ordre
-
 
     def is_bruite(self):
         """
@@ -87,20 +77,23 @@ class Sound:
         """
         return self._bruite
 
-
     def get_mfcc(self):
         """
             Retourne la matrice mfcc associée au son
         """
         return self._mfcc
 
-
     def get_composantes_principales(self):
         """
-            Retourne les composantes principles d'un son (veteur (3,1))
+            Retourne les composantes principles d'un son (vecteur (3,1))
         """
         return self._composantes_principales
 
+    def set_composantes_principales(self, composantes_principales):
+        """
+            Setter des composantes principles d'un son (veteur (3,1))
+        """
+        self._composantes_principales = composantes_principales
 
     def serialize(self):
         """
