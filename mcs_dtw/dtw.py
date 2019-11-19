@@ -14,6 +14,29 @@ def get_distance(matrix):
     return matrix[matrix.shape[0]-1][matrix.shape[1]-1] / (matrix.shape[0]+matrix.shape[1])
 
 
+def get_path(matrix):
+    """
+        Déterminer le chemin optimal
+    """
+    i = matrix.shape[0]-1
+    j = matrix.shape[1]-1
+    path = [(i, j)]
+    while i != 0 and j != 0:
+        val1 = matrix(i-1, j),
+        val2 = matrix(i-1, j-1),
+        val3 = matrix(i, j-1)
+        minimum = min([val1, val2, val3])
+        if minimum == val1:
+            i -= 1
+        elif minimum == val2:
+            i -= 1
+            j -= 1
+        else:
+            j -= 1
+        path.append((i, j))
+    return path
+
+
 def distance_de_case_a_diagonale(point_x, point_y, len_x, len_y):
     """
         Distance entre le point (point_x,point_y) et la diagonale du rectangle de taille len_x*len_y
@@ -44,7 +67,7 @@ def dtw(sequence_i, sequence_j, distance=entre_fenetres_audio, w_0=1, w_1=1, w_2
             else:
                 g[i][j] = math.inf
 
-    return (g, get_distance(g))
+    return (g, get_distance(g), get_path(g))
 
 
 def find_dtw_match(unknown_sound, base, params=None):
