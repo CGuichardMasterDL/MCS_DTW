@@ -134,6 +134,8 @@ def etude_valeurs_k_ordre_locuteur(learning_framework, base_test):
     """
     data = []
     global k_ordre, k_locuteur
+    original_ko = k_ordre
+    original_kl = k_locuteur
     range_ordre = range(1, 19)
     range_locuteur = range(1, 14)
     for k_ordre in range_ordre:
@@ -143,6 +145,8 @@ def etude_valeurs_k_ordre_locuteur(learning_framework, base_test):
                 base_test, find_dual_kppv_match, pretraitement_acp_dual).get_stats()
             data_line.append(100*result[1])
         data.append(data_line)
+    k_ordre = original_ko
+    k_locuteur = original_kl
     return (data, range_ordre, range_locuteur)
 
 
