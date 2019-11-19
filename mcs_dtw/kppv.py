@@ -11,8 +11,8 @@ from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 import numpy as np
 
-k_ordre = 15
-k_locuteur = 6
+k_ordre = 3
+k_locuteur = 9
 
 
 def find_kppv_match(unknown_sound, base, params):
@@ -143,7 +143,6 @@ def etude_valeurs_k_ordre_locuteur(learning_framework, base_test):
                 base_test, find_dual_kppv_match, pretraitement_acp_dual).get_stats()
             data_line.append(100*result[1])
         data.append(data_line)
-    print(data, range_ordre, range_locuteur)
     return (data, range_ordre, range_locuteur)
 
 
@@ -155,13 +154,10 @@ def show_etude_valeurs_k(results):
     ax = fig.gca(projection='3d')
 
     Z = np.transpose(np.asarray(results[0]))
-    X = np.flip(np.asarray(results[1]))
+    X = np.asarray(results[1])
     Y = np.asarray(results[2])
 
     X, Y = np.meshgrid(X, Y)
-    print(X.shape)
-    print(Y.shape)
-    print(Z.shape)
     surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
                            linewidth=0, antialiased=False)
 
