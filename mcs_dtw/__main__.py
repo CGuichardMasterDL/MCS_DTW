@@ -70,21 +70,41 @@ def main():
         mcs_dtw.SRC_PATH + "/corpus/dronevolant_nonbruite/M01_gauche.wav",
         mcs_dtw.SRC_PATH + "/corpus/dronevolant_bruite/M01_gauche.wav",
     ]
-    base_apprentissage = [x for x in LearningSet(files=files_effets).values()]
+    #base_apprentissage = [x for x in LearningSet(files=files_effets).values()]
 
-    #base_apprentissage = [x for x in LearningSet(files=files).values()]
+    # base_apprentissage = [x for x in LearningSet(folder=mcs_dtw.SRC_PATH +
+    #                                             "/corpus/sans_effet").values()]
 
     # base_test = [x for x in LearningSet(folder=mcs_dtw.SRC_PATH +
     #                                    "/corpus/hauteur_moins_50%").values()]
 
-    pretraitement_acp_dual(base_apprentissage)
-    affichages_effets_audios(base_apprentissage)
-
+    # pretraitement_acp_dual(base_apprentissage)
+    # affichages_effets_audios(base_apprentissage)
+    #framework = LearningFramework(base_apprentissage)
     #results = etude_valeurs_k_ordre_locuteur(framework, base_test)
     # show_etude_valeurs_k(results)
+
+    # result = framework.analyse(
+    #    base_test, find_dual_kppv_match, pretraitement_acp_dual)
+    #fig, ax = plt.subplots()
+    #result.affichage("3/9-ppv - Hauteur moins 50%", plt, ax)
+    # plt.show()
     # etude_d_max_diagonale(base_apprentissage)
     #framework.analyse_all_algorithms(base_test, printed=True, verbose=True)
     #print(find_d_max_diagonale(base_apprentissage[0].get_mfcc(), base_test[12].get_mfcc()))
+    sons_sans_effet = LearningSet(folder="./MCS_DTW/mcs_dtw/corpus/sans_effet")
+
+    base_apprentissage = [
+        x for x in sons_sans_effet.values() if x.get_locuteur() == "M01"]
+    base_test = [x for x in sons_sans_effet.values()
+                 if x.get_locuteur() == "M02"]
+    framework = LearningFramework(base_apprentissage)
+
+    result = framework.analyse(base_test, find_dtw_match, lambda x: None)
+    fig, ax = plt.subplots()
+
+    result.affichage("DTW - M02 / M01 - Silences tronqués", plt, ax)
+    plt.show()
 
 
 #=========   EXEC   =========#

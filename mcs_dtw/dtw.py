@@ -6,6 +6,8 @@ import numpy as np
 from mcs_dtw.distance import entre_fenetres_audio
 import matplotlib.pyplot as plt
 
+d_diagonale = 7
+
 
 def get_distance(matrix):
     """
@@ -78,7 +80,7 @@ def find_dtw_match(unknown_sound, base, params=None):
     distance_min = math.inf
     for sound in base:
         distance = dtw(unknown_sound.get_mfcc(),
-                       sound.get_mfcc(), d_max_diagonale=6)[1]
+                       sound.get_mfcc(), d_max_diagonale=d_diagonale)[1]
         if distance < distance_min:
             match = sound
             distance_min = distance
