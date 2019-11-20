@@ -17,9 +17,9 @@ class LearningFramework:
     """
 
     ALGORITHMES = {
-        # "Programmation dynamique": (find_dtw_match, lambda x: None),
-        "K plus proches voisins": (find_kppv_match, pretraitement_acp),
-        "K plus proches voisins dual": (find_dual_kppv_match, pretraitement_acp_dual)
+        "Programmation dynamique": (find_dtw_match, lambda x: None),
+        # "K plus proches voisins": (find_kppv_match, pretraitement_acp),
+        "3/9 plus proches voisins": (find_dual_kppv_match, pretraitement_acp_dual)
     }
 
     def __init__(self, base_apprentissage):
