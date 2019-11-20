@@ -24,9 +24,9 @@ def get_path(matrix):
     j = matrix.shape[1]-1
     path = [(i, j)]
     while i != 0 and j != 0:
-        val1 = matrix(i-1, j),
-        val2 = matrix(i-1, j-1),
-        val3 = matrix(i, j-1)
+        val1 = matrix[i-1][j]
+        val2 = matrix[i-1][j-1]
+        val3 = matrix[i][j-1]
         minimum = min([val1, val2, val3])
         if minimum == val1:
             i -= 1
