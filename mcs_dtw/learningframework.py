@@ -65,3 +65,17 @@ class LearningFramework:
         if windowed:
             fig.tight_layout()
             plt.show()
+
+
+def show_resultats_finaux(results):
+    """
+        Aficher les résultats finaux
+    """
+    plt.plot(results["Facteur de modification"],
+             results["Taux de reconnaissance totale dtw (%)"], label="dtw")
+    plt.plot(results["Facteur de modification"],
+             results["Taux de reconnaissance totale kppv (%)"], label="kppv")
+    plt.legend()
+    plt.xlabel("Facteur de modification de la hauteur (%)")
+    plt.ylabel("Pourcentage de reconnaissance totale")
+    plt.show()

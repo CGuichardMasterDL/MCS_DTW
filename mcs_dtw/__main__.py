@@ -10,7 +10,7 @@ import mcs_dtw
 import numpy as np
 import matplotlib.pyplot as plt
 from mcs_dtw.sound import Sound
-from mcs_dtw.learningframework import LearningFramework
+from mcs_dtw.learningframework import LearningFramework, show_resultats_finaux
 from scipy.io import wavfile
 from mpl_toolkits import mplot3d
 from mcs_dtw.dtw import dtw, find_d_max_diagonale, find_dtw_match, etude_d_max_diagonale
@@ -92,19 +92,27 @@ def main():
     # etude_d_max_diagonale(base_apprentissage)
     #framework.analyse_all_algorithms(base_test, printed=True, verbose=True)
     #print(find_d_max_diagonale(base_apprentissage[0].get_mfcc(), base_test[12].get_mfcc()))
-    sons_sans_effet = LearningSet(folder="./MCS_DTW/mcs_dtw/corpus/sans_effet")
+    #sons_sans_effet = LearningSet(folder="./MCS_DTW/mcs_dtw/corpus/sans_effet")
 
-    base_apprentissage = [
-        x for x in sons_sans_effet.values() if x.get_locuteur() == "M01"]
-    base_test = [x for x in sons_sans_effet.values()
-                 if x.get_locuteur() == "M02"]
-    framework = LearningFramework(base_apprentissage)
+    # base_apprentissage = [
+    #    x for x in sons_sans_effet.values() if x.get_locuteur() == "M01"]
+    # base_test = [x for x in sons_sans_effet.values()
+    #             if x.get_locuteur() == "M02"]
+    #framework = LearningFramework(base_apprentissage)
 
-    result = framework.analyse(base_test, find_dtw_match, lambda x: None)
-    fig, ax = plt.subplots()
+    #result = framework.analyse(base_test, find_dtw_match, lambda x: None)
+    #fig, ax = plt.subplots()
 
-    result.affichage("DTW - M02 / M01 - Silences tronqués", plt, ax)
-    plt.show()
+    #result.affichage("DTW - M02 / M01 - Silences tronqués", plt, ax)
+    # plt.show()
+
+    resultats_finaux = {
+        "Facteur de modification": [0.25, 0.50, 0.75, 0.85, 0.95, 1, 1.05, 1.15, 1.25, 1.50, 1.75],
+        "Taux de reconnaissance totale dtw (%)": [20, 20, 30, 10, 40, 10, 90, 89, 90, 87, 11],
+        "Taux de reconnaissance totale kppv (%)": [13, 67, 89, 34, 29, 48, 90, 90, 100, 2, 22],
+    }
+
+    show_resultats_finaux(resultats_finaux)
 
 
 #=========   EXEC   =========#
