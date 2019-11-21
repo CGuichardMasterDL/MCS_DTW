@@ -6,4 +6,5 @@ out/
 venv/
 .install
 .install-venv
+.DS_STORE
 *.pyc
