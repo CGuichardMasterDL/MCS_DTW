@@ -19,7 +19,7 @@ class TestSound(unittest.TestCase):
         Test de la classe Sound
     """
 
-    MYSOUND = Sound(path("mcs_dtw/corpus/dronevolant_bruite/M02_avance.wav"))
+    MYSOUND = Sound(path("corpus/dronevolant_bruite/M02_avance.wav"))
     SOUNDS = [
         MYSOUND,
         pickle.loads(MYSOUND.serialize())
@@ -59,14 +59,6 @@ class TestSound(unittest.TestCase):
             self.assertEqual(sound.get_ordre(), "avance")
 
 
-    def test_sound_is_bruite(self):
-        """
-            Vérifier si le son créé est bruité ou non
-        """
-        for sound in TestSound.SOUNDS:
-            self.assertEqual(sound.is_bruite(), True)
-
-
     def test_sound_get_mfcc(self):
         """
             Vérifier si la matrice mfcc est bien construite
@@ -84,7 +76,7 @@ class TestSound(unittest.TestCase):
             Vérifier la dimension (3,1)
         """
         for sound in TestSound.SOUNDS:
-            self.assertEqual(len(sound.get_composantes_principales()), 3)
+            self.assertEqual(sound.get_composantes_principales(), None)
 
     def test_equals(self):
         """

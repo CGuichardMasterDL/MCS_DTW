@@ -1,2 +1,2 @@
 include README.md LICENSE
-include mcs_dtw/corpus/*/*.wav
+include corpus/*/*.wav

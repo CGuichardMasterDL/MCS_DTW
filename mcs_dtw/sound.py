@@ -13,7 +13,7 @@ import librosa
 #========== CLASSE ==========#
 
 
-class Sound:
+class Sound(object):
     """
         Objet son. Contient la matrice mfcc et d'autres informations.
     """

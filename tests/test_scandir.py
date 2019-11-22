@@ -18,7 +18,7 @@ class TestScandDir(unittest.TestCase):
         Classe de test pour le fichier yamlmanager de mcs_dtw.
     """
 
-    CORPUS = path("mcs_dtw/corpus/")
+    CORPUS = path("corpus/")
 
 
     def test_scandir_contruct(self):
