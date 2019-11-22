@@ -18,25 +18,8 @@ from matplotlib.ticker import LinearLocator, FormatStrFormatter
 
 #========== CLASSE ==========#
 
-class Config(object):
-    """
-        Objet Config utilisé seulement pour ne pas avoir à utiliser de global.
-    """
-
-    def __init__(self):
-        self._k_ordre = 3
-        self._k_locuteur = 9
-
-
-    def k_ordre(self):
-        """getter _k_ordre"""
-        return self._k_ordre
-
-
-    def k_locuteur(self):
-        """getter _k_locuteur"""
-        return self._k_locuteur
-
+k_ordre = 3
+k_locuteur = 9
 
 #======== FUNCTIONS =========#
 
@@ -103,9 +86,9 @@ def pretraitement_acp_dual(base):
         update_composantes_principales(
             sound, np.transpose(acp.components_), scaler)
 
-    conf = Config()
-    kppv_ordre = KNeighborsClassifier(n_neighbors=conf.k_ordre())
-    kppv_locuteur = KNeighborsClassifier(n_neighbors=conf.k_locuteur())
+
+    kppv_ordre = KNeighborsClassifier(n_neighbors=k_ordre)
+    kppv_locuteur = KNeighborsClassifier(n_neighbors=k_locuteur)
 
     data = [sound.get_composantes_principales() for sound in base]
     classes_ordre = [sound.get_ordre() for sound in base]
@@ -161,15 +144,20 @@ def etude_valeurs_k_ordre_locuteur(learning_framework, base_test):
         et 0 < k_locuteur < 13 (car 13 ordres max par locuteur dans le voisinage)
     """
     data = []
+    global k_ordre, k_locuteur
+    original_ko = k_ordre
+    original_kl = k_locuteur
     range_ordre = range(1, 19)
     range_locuteur = range(1, 14)
-    for _ in range_ordre:
+    for k_ordre in range_ordre:
         data_line = []
-        for _ in range_locuteur:
+        for k_locuteur in range_locuteur:
             result = learning_framework.analyse(
                 base_test, find_dual_kppv_match, pretraitement_acp_dual).get_stats()
             data_line.append(100*result[1])
         data.append(data_line)
+    k_ordre = original_ko
+    k_locuteur = original_kl
     return (data, range_ordre, range_locuteur)
 
 
