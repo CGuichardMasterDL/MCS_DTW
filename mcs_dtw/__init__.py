@@ -18,9 +18,16 @@ __email__ = "clement.guichard@master-developpement-logiciel.fr"
 
 name = "mcs_dtw"  # pylint: disable=invalid-name
 
-SRC_PATH = os.path.dirname(__file__)
+ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir)) + "/"
 
 #======== FUNCTIONS =========#
+
+
+def path(filepath):
+    """
+        Chemin d'un fichier par rapport à la racine du projet.
+    """
+    return ROOT_PATH+filepath
 
 
 def is_imported():

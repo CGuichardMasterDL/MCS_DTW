@@ -1,18 +1,27 @@
+# -*- coding: utf-8 -*-
 """
     Algo de classification par k-plus proches voisins en utilisant la librairie sklearn
 """
+
+#========== IMPORT ==========#
+
+import numpy as np
+import matplotlib.pyplot as plt
 
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
-import numpy as np
+
+
+#========== CLASSE ==========#
 
 k_ordre = 3
 k_locuteur = 9
+
+#======== FUNCTIONS =========#
 
 
 def find_kppv_match(unknown_sound, base, params):
@@ -77,6 +86,7 @@ def pretraitement_acp_dual(base):
         update_composantes_principales(
             sound, np.transpose(acp.components_), scaler)
 
+
     kppv_ordre = KNeighborsClassifier(n_neighbors=k_ordre)
     kppv_locuteur = KNeighborsClassifier(n_neighbors=k_locuteur)
 
@@ -102,7 +112,8 @@ def find_dual_kppv_match(unknown_sound, base, params):
     locuteur_predis = kppv_locuteur.predict(
         [unknown_sound.get_composantes_principales()])[0]
 
-    return [x for x in base if x.get_ordre() == ordre_predis and x.get_locuteur() == locuteur_predis][0]
+    return [x for x in base if x.get_ordre() == ordre_predis
+            and x.get_locuteur() == locuteur_predis][0]
 
 
 def mean_mfcc(sound):
@@ -155,21 +166,21 @@ def show_etude_valeurs_k(results):
         matplotlib hell
     """
     fig = plt.figure()
-    ax = fig.gca(projection='3d')
+    axes = fig.gca(projection='3d')
 
-    Z = np.transpose(np.asarray(results[0]))
-    X = np.asarray(results[1])
-    Y = np.asarray(results[2])
+    z_ax = np.transpose(np.asarray(results[0]))
+    x_ax = np.asarray(results[1])
+    y_ax = np.asarray(results[2])
 
-    X, Y = np.meshgrid(X, Y)
-    surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
-                           linewidth=0, antialiased=False)
+    x_ax, y_ax = np.meshgrid(x_ax, y_ax)
+    surf = axes.plot_surface(x_ax, y_ax, z_ax, cmap=cm.coolwarm,
+                             linewidth=0, antialiased=False)
 
-    ax.zaxis.set_major_locator(LinearLocator(10))
-    ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
-    ax.set_xlabel("k_ordre")
-    ax.set_ylabel("k_locuteur")
-    ax.set_zlabel("Taux de reconnaissance ordre et locuteur %")
+    axes.zaxis.set_major_locator(LinearLocator(10))
+    axes.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+    axes.set_xlabel("k_ordre")
+    axes.set_ylabel("k_locuteur")
+    axes.set_zlabel("Taux de reconnaissance ordre et locuteur %")
 
     fig.colorbar(surf, shrink=0.5, aspect=5)
 
@@ -181,8 +192,8 @@ def affichages_effets_audios(sounds):
         Afficher en 3d les points correspondants aux fichiers audios en paramètres
         En mettant en évidence les différences entre les effets audios
     """
-    fig = plt.figure()
-    ax = plt.axes(projection='3d')
+    plt.figure()
+    axes = plt.axes(projection='3d')
 
     sounds_dict = {}
     for sound in sounds:
@@ -195,22 +206,22 @@ def affichages_effets_audios(sounds):
             )
         else:
             sounds_dict[sound.get_locuteur()+" : "+sound.get_ordre()
-                        ][0].append(sound)
+                       ][0].append(sound)
             sounds_dict[sound.get_locuteur()+" : "+sound.get_ordre()
-                        ][1].append(sound.get_composantes_principales()[0])
+                       ][1].append(sound.get_composantes_principales()[0])
             sounds_dict[sound.get_locuteur()+" : "+sound.get_ordre()
-                        ][2].append(sound.get_composantes_principales()[1])
+                       ][2].append(sound.get_composantes_principales()[1])
             sounds_dict[sound.get_locuteur()+" : "+sound.get_ordre()
-                        ][3].append(sound.get_composantes_principales()[2])
+                       ][3].append(sound.get_composantes_principales()[2])
 
     for key, value in sounds_dict.items():
-        ax.plot(value[1], value[2], value[3])
-        ax.text(value[1][0], value[2][0], value[3][0],  '%s' % (key+"\n"+sound.get_effet()),
-                size=9, zorder=1, color='k')
+        axes.plot(value[1], value[2], value[3])
+        axes.text(value[1][0], value[2][0], value[3][0], '%s' % (key+"\n"+sound.get_effet()), # pylint: disable=W0631
+                  size=9, zorder=1, color='k')
         for i, sound in enumerate(value[0]):
             if i != 0:
-                (x, y, z) = sound.get_composantes_principales()
-                ax.text(x, y, z,  '%s' % (sound.get_effet()),
-                        size=8, zorder=1, color='k')
+                (x_ax, y_ax, z_ax) = sound.get_composantes_principales()
+                axes.text(x_ax, y_ax, z_ax, '%s' % (sound.get_effet()),
+                          size=8, zorder=1, color='k')
 
     plt.show()

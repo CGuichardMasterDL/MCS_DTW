@@ -5,9 +5,9 @@
 
 #========== IMPORT ==========#
 
-from .sound import Sound
-from .scandir import ScanDir
-from .yamlmanager import write_yaml, load_yaml
+from mcs_dtw.sound import Sound
+from mcs_dtw.scandir import ScanDir
+from mcs_dtw.yamlmanager import write_yaml, load_yaml
 
 #========== CLASSE ==========#
 

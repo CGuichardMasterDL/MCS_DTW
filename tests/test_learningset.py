@@ -19,15 +19,15 @@ class TestLearningSet(unittest.TestCase):
         Classe de test pour le fichier yamlmanager de mcs_dtw.
     """
 
-    CORPUS = path("mcs_dtw/corpus/")
+    CORPUS = path("corpus/")
     YAML_TEST = path("out/tests/TestLearningSet-1.yml")
 
     LS1 = LearningSet()
-    LS2 = LearningSet(folder=CORPUS).save(YAML_TEST)
+    LS2 = LearningSet(folder=CORPUS+"dronevolant_nonbruite").save(YAML_TEST)
     LS3 = LearningSet(yaml_file=YAML_TEST)
-    LS4 = LearningSet(folder=CORPUS+"dronevolant_bruite")\
-                     .add(folder=CORPUS+"dronevolant_nonbruite")
-    LS5 = LearningSet(files=ScanDir(CORPUS).filter(extension=LearningSet.AUDIO_FILE_EXTENSION))
+    LS4 = LearningSet().add(folder=CORPUS+"dronevolant_nonbruite")
+    LS5 = LearningSet(files=ScanDir(CORPUS+"dronevolant_nonbruite")
+                      .filter(extension=LearningSet.AUDIO_FILE_EXTENSION))
 
 
     def test_learningset_contruct(self):

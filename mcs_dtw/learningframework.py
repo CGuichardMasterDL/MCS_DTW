@@ -1,17 +1,22 @@
+# -*- coding: utf-8 -*-
 """
     Objectif:
         lancer une analyse (dtw ou kppv ou autre) entre deux jeux de sons.
         Afficher le résultat sous forme de matrice de confusion.
 """
 
-import random
+#========== IMPORT ==========#
+
 import matplotlib.pyplot as plt
-from dtw import find_dtw_match
-from kppv import find_kppv_match, pretraitement_acp, find_dual_kppv_match, pretraitement_acp_dual
-from result import Result
+
+from mcs_dtw.dtw import find_dtw_match
+from mcs_dtw.kppv import find_kppv_match, pretraitement_acp, find_dual_kppv_match, pretraitement_acp_dual # pylint: disable=W0611,C0301
+from mcs_dtw.result import Result
+
+#========== CLASSE ==========#
 
 
-class LearningFramework:
+class LearningFramework(object):
     """
         framework d'analyse
     """
@@ -22,12 +27,14 @@ class LearningFramework:
         # "3/9 plus proches voisins": (find_dual_kppv_match, pretraitement_acp_dual)
     }
 
+
     def __init__(self, base_apprentissage):
         """
             Initialiser l'objet avec une base d'apprentissage et une base de tests
             (deux listes d'objet Sound)
         """
         self.base_apprentissage = base_apprentissage
+
 
     def analyse(self, base_test, algorithme, pretraitement, verbose=False):
         """
@@ -42,6 +49,7 @@ class LearningFramework:
                 unknown_sound, self.base_apprentissage, params)
             result.append_sounds(unknown_sound, predicted_sound)
         return result
+
 
     def analyse_all_algorithms(self, base_test, printed=False, windowed=True, verbose=False):
         """
@@ -60,11 +68,14 @@ class LearningFramework:
                       key+"\n#=========================================#\n\033[0;")
                 result.print()
             if windowed:
-                ax = plt.subplot(1, len(self.ALGORITHMES), plot_id)
-                result.affichage(key, plt, ax)
+                axes = plt.subplot(1, len(self.ALGORITHMES), plot_id)
+                result.affichage(key, plt, axes)
         if windowed:
             fig.tight_layout()
             plt.show()
+
+
+#======== FUNCTIONS =========#
 
 
 def show_resultats_finaux(results):
